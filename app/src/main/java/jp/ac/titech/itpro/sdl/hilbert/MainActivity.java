@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private final static int MAX_ORDER = 9;
+    private final static String KEY_ORDER = "MainActivity.order";
     private int order = 1;
 
     private TextView orderView;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         decButton = findViewById(R.id.dec_button);
         incButton = findViewById(R.id.inc_button);
 
+        if (savedInstanceState != null) {
+            order = savedInstanceState.getInt(KEY_ORDER);
+        }
         decButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         display();
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_ORDER, order);
     }
 
     private void display() {
